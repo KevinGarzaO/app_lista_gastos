@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import {auth} from './../firebase/firebaseConfig'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
-
+import Alerta from '../elementos/Alerta';
 
 const Svg = styled(SvgLogin)`
     width: 100%;
@@ -22,6 +22,8 @@ const RegistroUsuarios = () => {
     const[correo, setCorreo] = useState('');
     const[password, setPassword] = useState('');
     const[password2, setPassword2] = useState('');
+    const[estadoAlerta, setEstadoAlerta] = useState(false);
+    const[alerta, setAlerta] = useState({});
 
     const handleChange = (e) => {
         switch(e.target.name){
@@ -43,22 +45,37 @@ const RegistroUsuarios = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setEstadoAlerta(false);
+        setAlerta({});
 
         if(correo === '' || password === '' || password2 === '' ){
-            console.log('Por favor llenar todos los datos');
+            setEstadoAlerta(true);
+            setAlerta({
+                tipo: "error",
+                mensaje: "Por favor llenar todos los datos"
+            });
+          
             return;
         }
 
         //Comprobamos del lado del cliente que el correo sea valido.
         const expresionRegular = /[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+/;
         if(!expresionRegular.test(correo)){
-            console.log('Por favor ingresa un correo electronico valido');
+            setEstadoAlerta(true);
+            setAlerta({
+                tipo: "error",
+                mensaje: "Por favor ingresa un correo electronico valido"
+            });
             return;
         }
 
        
         if(password !== password2){
-            console.log('Las contraseñas no son iguales');
+            setEstadoAlerta(true);
+            setAlerta({
+                tipo: "error",
+                mensaje: "Las contraseñas no son iguales"
+            });
             return;
         }
         
@@ -82,7 +99,11 @@ const RegistroUsuarios = () => {
                     break;
             
             }
-            console.log(mensaje);
+            setEstadoAlerta(true);
+            setAlerta({
+                tipo: "error",
+                mensaje: mensaje
+            });
         }
     }
 
@@ -111,6 +132,8 @@ const RegistroUsuarios = () => {
                     <Boton as="button" primario type='submit'>Crear Cuenta</Boton>
                 </ContenedorBoton>
             </Formulario>
+
+            <Alerta tipo={alerta.tipo} mensaje={alerta.mensaje} estadoAlerta={estadoAlerta} setEstadoAlerta={setEstadoAlerta}/>
 
         </>
     );
