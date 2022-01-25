@@ -5,6 +5,10 @@ import Boton from './../elementos/Boton'
 import { Formulario, Input, ContenedorBoton} from './../elementos/ElementosDeFormulario'
 import {ReactComponent as SvgLogin} from './../images/registro.svg';
 import styled from 'styled-components';
+import {auth} from './../firebase/firebaseConfig'
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+
 
 const Svg = styled(SvgLogin)`
     width: 100%;
@@ -12,9 +16,9 @@ const Svg = styled(SvgLogin)`
     margin-bottom: 1.25rem; /*20 px*/
 `;
 
-
 const RegistroUsuarios = () => {
 
+    const navigate = useNavigate();
     const[correo, setCorreo] = useState('');
     const[password, setPassword] = useState('');
     const[password2, setPassword2] = useState('');
@@ -37,7 +41,7 @@ const RegistroUsuarios = () => {
 
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         if(correo === '' || password === '' || password2 === '' ){
@@ -57,7 +61,29 @@ const RegistroUsuarios = () => {
             console.log('Las contraseñas no son iguales');
             return;
         }
-        console.log('Registramos un usuario');
+        
+        try{
+            await createUserWithEmailAndPassword(auth, correo, password)
+            navigate('/');
+        }catch(error){
+            let mensaje;
+            switch(error.code){
+                case "auth/weak-password":
+                    mensaje = "La contraseña debe de tener al menos 6 caracteres"
+                    break;
+                case 'auth/email-already-in-use':
+                    mensaje = 'Ya existe una cuenta con el correo electrónico proporcionado.'
+                    break;
+                case 'auth/invalid-email':
+                    mensaje = 'El correo electrónico no es válido.'
+                    break;
+                default:
+                    mensaje = 'Hubo un error al intentar crear la cuenta.'
+                    break;
+            
+            }
+            console.log(mensaje);
+        }
     }
 
     return (

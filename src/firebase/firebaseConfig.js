@@ -3,15 +3,15 @@ import { getFirestore } from "firebase/firestore"
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_LISTA_GASTOS_APIKEY,
-  authDomain: process.env.REACT_APP_LISTA_GASTOS_AUTHDOMAIN,
-  projectId: process.env.REACT_APP_LISTA_GASTOS_PROJECTID, 
-  storageBucket: process.env.REACT_APP_LISTA_GASTOS_STORAGEBUCKET,
-  messagingSenderId: process.env.REACT_APP_LISTA_GASTOS_STORAGEBUCKET,
-  appId: process.env.REACT_APP_LISTA_GASTOS_STORAGEBUCKET
+  apiKey:process.env.REACT_APP_LISTA_GASTOS_APIKEY,
+  authDomain:process.env.REACT_APP_LISTA_GASTOS_AUTHDOMAIN,
+  projectId:process.env.REACT_APP_LISTA_GASTOS_PROJECTID,
+  storageBucket:process.env.REACT_APP_LISTA_GASTOS_STORAGEBUCKET,
+  messagingSenderId:process.env.REACT_APP_LISTA_GASTOS_MESSAGINGSENDERID,
+  appId:process.env.REACT_APP_LISTA_GASTOS_APPID,
 };
 
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 
