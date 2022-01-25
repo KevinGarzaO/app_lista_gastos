@@ -72,9 +72,6 @@ const InicioSesion = () => {
                 case 'auth/user-not-found':
                     mensaje = 'No existe usuario favor de volver a intentar.'
                     break;
-                // case 'auth/invalid-email':
-                //     mensaje = 'El correo electrónico no es válido.'
-                //     break;
                 default:
                     mensaje = 'Hubo un error al intentar crear la cuenta.'
                     break;
