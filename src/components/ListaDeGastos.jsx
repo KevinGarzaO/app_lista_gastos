@@ -4,10 +4,12 @@ import Helmet from 'react-helmet';
 import BtnRegresar from '../elementos/BtnRegresar';
 import { useAuth } from '../contexts/AuthContext';
 import BarraTotalGastado from './BarraTotalGastado';
+import useObtenerGastos from '../hooks/useObtenerGastos';
 
 const ListaDeGastos = () => {
     const {usuario} = useAuth();
-    console.log(usuario);
+    const [gastos] = useObtenerGastos();
+   
 
     return (
         <>
