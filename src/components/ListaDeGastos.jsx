@@ -2,14 +2,11 @@ import React from 'react';
 import { Header, Titulo } from './../elementos/Header'
 import Helmet from 'react-helmet';
 import BtnRegresar from '../elementos/BtnRegresar';
-import { useAuth } from '../contexts/AuthContext';
 import BarraTotalGastado from './BarraTotalGastado';
 import useObtenerGastos from '../hooks/useObtenerGastos';
 import {
     Lista,
     ElementoLista,
-    ListaDeCategorias,
-    ElementoListaCategorias,
     Categoria,
     Descripcion,
     Valor,
@@ -31,7 +28,6 @@ import {format, fromUnixTime} from 'date-fns'
 import {es} from 'date-fns/locale'
 
 const ListaDeGastos = () => {
-    const { usuario } = useAuth();
     const [gastos] = useObtenerGastos();
 
     const formatearFecha = (fecha) =>{
