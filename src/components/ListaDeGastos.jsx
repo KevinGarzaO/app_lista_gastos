@@ -90,9 +90,7 @@ const ListaDeGastos = () => {
                 })}
 
                 <ContenedorBotonCentral>
-                    <BotonCargarMas>
-                        Cargar más
-                    </BotonCargarMas>
+                    <BotonCargarMas> Cargar más</BotonCargarMas>
                 </ContenedorBotonCentral>
 
 
