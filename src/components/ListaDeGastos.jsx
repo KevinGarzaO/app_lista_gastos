@@ -24,24 +24,24 @@ import { ReactComponent as IconoEditar } from './../images/editar.svg'
 import { ReactComponent as IconoBorrar } from './../images/borrar.svg'
 import { Link } from 'react-router-dom';
 import Boton from './../elementos/Boton'
-import {format, fromUnixTime} from 'date-fns'
-import {es} from 'date-fns/locale'
+import { format, fromUnixTime } from 'date-fns'
+import { es } from 'date-fns/locale'
 
 const ListaDeGastos = () => {
     const [gastos] = useObtenerGastos();
 
-    const formatearFecha = (fecha) =>{
-      return (format(fromUnixTime(fecha), "dd 'de' MMMM 'de' yyyy", {locale: es}));
+    const formatearFecha = (fecha) => {
+        return (format(fromUnixTime(fecha), "dd 'de' MMMM 'de' yyyy", { locale: es }));
     }
 
-    const fechaEsIgual = (gastos, index, gasto) =>{
-        if(index !== 0){
+    const fechaEsIgual = (gastos, index, gasto) => {
+        if (index !== 0) {
             const fechaActual = formatearFecha(gasto.fecha);
-            const fechaGastoAnterior = formatearFecha(gastos[index -1].fecha);
-           
-            if(fechaActual === fechaGastoAnterior){
+            const fechaGastoAnterior = formatearFecha(gastos[index - 1].fecha);
+
+            if (fechaActual === fechaGastoAnterior) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -90,7 +90,9 @@ const ListaDeGastos = () => {
                 })}
 
                 <ContenedorBotonCentral>
-                    <BotonCargarMas> Cargar más   </BotonCargarMas>
+                    <BotonCargarMas>
+                        Cargar más
+                    </BotonCargarMas>
                 </ContenedorBotonCentral>
 
 
